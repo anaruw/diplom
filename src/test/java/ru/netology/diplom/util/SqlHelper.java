@@ -9,24 +9,28 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 @UtilityClass
 public class SqlHelper {
-    private String connUrl = "jdbc:mysql://localhost:3307/app";
+    private String connUrl = "jdbc:postgresql://localhost:5432/app";
     private String connUser = "app";
     private String connPass = "pass";
 
     @Data
     public class TableName {
-        String tables_in_app;
+        String table_name;
     }
 
     @SneakyThrows
     public void cleaningDB() {
         List<String> tableNames = new ArrayList<>();
-        String tableNamesQuery = "SHOW tables;";
+        String tableNamesQuery =
+                "SELECT table_name " +
+                "FROM information_schema.tables " +
+                "WHERE table_schema = 'public';";
 
         try (Connection conn = DriverManager.getConnection(connUrl, connUser, connPass)) {
             QueryRunner runner = new QueryRunner();
@@ -34,29 +38,29 @@ public class SqlHelper {
             List<TableName> reply = runner.query(conn, tableNamesQuery, new BeanListHandler<>(TableName.class));
 
             for (TableName name : reply) {
-                tableNames.add(name.getTables_in_app());
+                tableNames.add(name.getTable_name());
             }
 
-            String foreignKeySet = "SET FOREIGN_KEY_CHECKS = 0;";
+            String foreignKeySet = "SET session_replication_role = 'replica';";
             runner.update(conn, foreignKeySet);
 
             for (String tableName : tableNames) {
-                String removeQuery = "TRUNCATE TABLE " + tableName + ";";
+                String removeQuery = "TRUNCATE TABLE " + tableName + " RESTART IDENTITY CASCADE;";
                 runner.update(conn, removeQuery);
             }
-            foreignKeySet = "SET FOREIGN_KEY_CHECKS = 1;";
+            foreignKeySet = "SET session_replication_role = 'origin';";
             runner.update(conn, foreignKeySet);
         }
     }
 
     @SneakyThrows
-    public String paymentStatus(String testCreated) {
+    public String paymentStatus(Timestamp testCreated) {
         String result;
         String query =
                 "SELECT payment_entity.status " +
                         "FROM order_entity " +
                         "JOIN payment_entity ON payment_entity.transaction_id = order_entity.payment_id " +
-                        "WHERE CONVERT_TZ(order_entity.created, '+00:00', '+3:00') > ?;";
+                        "WHERE order_entity.created > ?;";
         QueryRunner runner = new QueryRunner();
 
         try (Connection conn = DriverManager.getConnection(connUrl, connUser, connPass)) {
@@ -67,13 +71,13 @@ public class SqlHelper {
     }
 
     @SneakyThrows
-    public String creditStatus(String testCreated) {
+    public String creditStatus(Timestamp testCreated) {
         String result;
         String query =
                 "SELECT credit_request_entity.status " +
                         "FROM order_entity " +
                         "JOIN credit_request_entity ON credit_request_entity.bank_id = order_entity.credit_id " +
-                        "WHERE CONVERT_TZ(order_entity.created, '+00:00', '+3:00') > ?;";
+                        "WHERE order_entity.created > ?;";
         QueryRunner runner = new QueryRunner();
 
         try (Connection conn = DriverManager.getConnection(connUrl, connUser, connPass)) {

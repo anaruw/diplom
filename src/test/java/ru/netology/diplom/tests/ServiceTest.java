@@ -10,8 +10,7 @@ import ru.netology.diplom.pages.PaymentPage;
 import ru.netology.diplom.util.DataHelper;
 import ru.netology.diplom.util.SqlHelper;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Timestamp;
 
 public class ServiceTest {
     DashBoardPage dashBoardPage;
@@ -140,7 +139,7 @@ public class ServiceTest {
 
     @Test
     public void paymentWithApprovedCardTest() {
-        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+        Timestamp testCreated = new Timestamp(System.currentTimeMillis());
 
         testData = testData.withCardNumber(DataHelper.approvedCard());
         PaymentPage formPage = dashBoardPage.toPaymentForm();
@@ -156,7 +155,7 @@ public class ServiceTest {
 
     @Test
     public void creditWithApprovedCardTest() {
-        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+        Timestamp testCreated = new Timestamp(System.currentTimeMillis());
 
         testData = testData.withCardNumber(DataHelper.approvedCard());
         CreditPage formPage = dashBoardPage.toCreditForm();
@@ -173,7 +172,7 @@ public class ServiceTest {
     @Test
     public void paymentWithDeclinedCardTest() {
         String notificationContent = "Ошибка! Банк отказал в проведении операции.";
-        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+        Timestamp testCreated = new Timestamp(System.currentTimeMillis());
 
         testData = testData.withCardNumber(DataHelper.declinedCard());
         PaymentPage formPage = dashBoardPage.toPaymentForm();
@@ -189,7 +188,7 @@ public class ServiceTest {
     @Test
     public void creditWithDeclinedCardTest() {
         String notificationContent = "Ошибка! Банк отказал в проведении операции.";
-        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+        Timestamp testCreated = new Timestamp(System.currentTimeMillis());
 
         testData = testData.withCardNumber(DataHelper.declinedCard());
         CreditPage formPage = dashBoardPage.toCreditForm();
