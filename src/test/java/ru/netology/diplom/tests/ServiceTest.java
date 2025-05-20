@@ -204,11 +204,10 @@ public class ServiceTest {
     }
 
     @Test
-    public void paymentWithRandomCardWithBigCardExpiryTest() {
+    public void paymentWithRandomCardTest() {
         String notificationContent = "Ошибка! Данные карты введены неверно, или нет связи с банком.";
 
         testData = testData.withCardNumber(DataHelper.randomCardNumber());
-        testData = testData.withCardExpiry(DataHelper.mayBeAvailableCardExpiry());
         PaymentPage formPage = dashBoardPage.toPaymentForm();
 
         formPage.inputData(testData);
@@ -217,15 +216,48 @@ public class ServiceTest {
     }
 
     @Test
-    public void creditWithRandomCardWithAvailableExpiredCardExpiryTest() {
+    public void creditWithRandomCardTest() {
         String notificationContent = "Ошибка! Данные карты введены неверно, или нет связи с банком.";
 
         testData = testData.withCardNumber(DataHelper.randomCardNumber());
-        testData = testData.withCardExpiry(DataHelper.mayBeAvailableExpiredCardExpiry());
         CreditPage formPage = dashBoardPage.toCreditForm();
 
         formPage.inputData(testData);
         formPage.sendForm();
         formPage.checkErrorNotification(notificationContent);
+    }
+
+    @Test
+    public void paymentWithLongCardExpiryTest() {
+        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+
+        testData = testData.withCardNumber(DataHelper.approvedCard());
+        testData = testData.withCardExpiry(DataHelper.mayBeAvailableCardExpiry());
+        CreditPage formPage = dashBoardPage.toCreditForm();
+
+        formPage.inputData(testData);
+        formPage.sendForm();
+
+        Assertions.assertAll(
+                () -> formPage.checkSuccessNotification(),
+                () -> Assertions.assertEquals("APPROVED", SqlHelper.creditStatus(testCreated))
+        );
+    }
+
+    @Test
+    public void creditWithAvailableExpiredCardExpiryTest() {
+        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+
+        testData = testData.withCardNumber(DataHelper.approvedCard());
+        testData = testData.withCardExpiry(DataHelper.mayBeAvailableExpiredCardExpiry());
+        CreditPage formPage = dashBoardPage.toCreditForm();
+
+        formPage.inputData(testData);
+        formPage.sendForm();
+
+        Assertions.assertAll(
+                () -> formPage.checkSuccessNotification(),
+                () -> Assertions.assertEquals("APPROVED", SqlHelper.creditStatus(testCreated))
+        );
     }
 }
