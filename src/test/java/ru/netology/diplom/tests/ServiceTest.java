@@ -228,7 +228,7 @@ public class ServiceTest {
 
     @Test
     public void paymentWithLongCardExpiryTest() {
-        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+        Timestamp testCreated = new Timestamp(System.currentTimeMillis());
 
         testData = testData.withCardNumber(DataHelper.approvedCard());
         testData = testData.withCardExpiry(DataHelper.mayBeAvailableCardExpiry());
@@ -245,7 +245,7 @@ public class ServiceTest {
 
     @Test
     public void creditWithAvailableExpiredCardExpiryTest() {
-        String testCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+        Timestamp testCreated = new Timestamp(System.currentTimeMillis());
 
         testData = testData.withCardNumber(DataHelper.approvedCard());
         testData = testData.withCardExpiry(DataHelper.mayBeAvailableExpiredCardExpiry());
