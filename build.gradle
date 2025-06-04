@@ -1,7 +1,6 @@
-
 plugins {
     id 'java'
-    id("io.freefair.lombok") version "8.12.2.1"
+    id 'io.freefair.lombok' version "8.12.2.1"
     id 'io.qameta.allure' version '2.11.2'
 }
 
@@ -36,5 +35,6 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    systemProperty 'db.url', System.getProperty('db.url', "jdbc:mysql://localhost:3307/app")
     systemProperty 'chromeoptions.prefs', System.getProperty('chromeoptions.prefs', 'profile.password_manager_leak_detection=false')
 }
