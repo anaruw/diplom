@@ -47,16 +47,16 @@ public class PageWithInputForm {
         sendButton.click();
     }
 
-    public String getCardNumberInput() {
-        return cardNumberInput.find("input").getValue();
+    public void checkCardNumberInput(String expectedValue) {
+        cardNumberInput.find("input").shouldHave(Condition.value(expectedValue));
     }
 
-    public String getOwnerInput() {
-        return ownerInput.find("input").getValue();
+    public void checkOwnerInput(String expectedOwner) {
+        ownerInput.find("input").shouldHave(Condition.value(expectedOwner));
     }
 
-    public String getCvcInput() {
-        return cvcInput.find("input").getValue();
+    public void checkCvcInput(String expectedCvcCode) {
+        cvcInput.find("input").shouldHave(Condition.value(expectedCvcCode));
     }
 
     public void checkSuccessNotification() {

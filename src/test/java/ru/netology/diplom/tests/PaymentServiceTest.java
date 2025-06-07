@@ -157,9 +157,8 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualCardNumberInput = paymentPage.getCardNumberInput();
-
-        Assertions.assertNotEquals(cardNumber, actualCardNumberInput);
+        String expectedCardNumber = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkCardNumberInput(expectedCardNumber);
     }
 
     @Test
@@ -175,9 +174,8 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualCardNumberInput = paymentPage.getCardNumberInput();
-
-        Assertions.assertNotEquals(cardNumber, actualCardNumberInput);
+        String expectedCardNumber = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkCardNumberInput(expectedCardNumber);
     }
 
     @Test
@@ -193,9 +191,8 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualCardNumberInput = paymentPage.getCardNumberInput();
-
-        Assertions.assertNotEquals(cardNumber, actualCardNumberInput);
+        String expectedCardNumber = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkCardNumberInput(expectedCardNumber);
     }
 
     @Test
@@ -477,9 +474,8 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualOwnerInput = paymentPage.getOwnerInput();
-
-        Assertions.assertNotEquals(owner, actualOwnerInput);
+        String expectedOwner = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkOwnerInput(expectedOwner);
     }
 
     @Test
@@ -495,9 +491,8 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualOwnerInput = paymentPage.getOwnerInput();
-
-        Assertions.assertNotEquals(owner, actualOwnerInput);
+        String expectedOwner = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkOwnerInput(expectedOwner);
     }
 
     @Test
@@ -559,9 +554,8 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualCvcInput = paymentPage.getCvcInput();
-
-        Assertions.assertNotEquals(cvcCode, actualCvcInput);
+        String expectedCvcCode = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkCvcInput(expectedCvcCode);
     }
 
     @Test
@@ -577,9 +571,8 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualCvcInput = paymentPage.getCvcInput();
-
-        Assertions.assertNotEquals(cvcCode, actualCvcInput);
+        String expectedCvcCode = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkCvcInput(expectedCvcCode);
     }
 
     @Test
@@ -595,8 +588,7 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String actualCvcInput = paymentPage.getCvcInput();
-
-        Assertions.assertNotEquals(cvcCode, actualCvcInput);
+        String expectedCvcCode = cardNumber.substring(0, cardNumber.length() - 1);
+        paymentPage.checkCvcInput(expectedCvcCode);
     }
 }
