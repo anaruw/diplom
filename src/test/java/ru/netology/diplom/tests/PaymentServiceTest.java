@@ -474,7 +474,7 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String expectedOwner = owner.substring(0, cardNumber.length() - 1);
+        String expectedOwner = owner.substring(0, owner.length() - 1);
         paymentPage.checkOwnerInput(expectedOwner);
     }
 
@@ -491,7 +491,7 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String expectedOwner = owner.substring(0, cardNumber.length() - 1);
+        String expectedOwner = owner.substring(0, owner.length() - 1);
         paymentPage.checkOwnerInput(expectedOwner);
     }
 
@@ -554,7 +554,7 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String expectedCvcCode = cvcCode.substring(0, cardNumber.length() - 1);
+        String expectedCvcCode = cvcCode.substring(0, cvcCode.length() - 1);
         paymentPage.checkCvcInput(expectedCvcCode);
     }
 
@@ -571,7 +571,7 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String expectedCvcCode = cvcCode.substring(0, cardNumber.length() - 1);
+        String expectedCvcCode = cvcCode.substring(0, cvcCode.length() - 1);
         paymentPage.checkCvcInput(expectedCvcCode);
     }
 
@@ -588,7 +588,7 @@ public class PaymentServiceTest {
         paymentPage.setCvcInput(cvcCode);
         paymentPage.sendForm();
 
-        String expectedCvcCode = cvcCode.substring(0, cardNumber.length() - 1);
+        String expectedCvcCode = cvcCode.substring(0, cvcCode.length() - 1);
         paymentPage.checkCvcInput(expectedCvcCode);
     }
 }
