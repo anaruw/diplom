@@ -52,7 +52,7 @@ public class DataHelper {
     }
 
     public char randomSpecialChar() {
-        String specialChars = "~`!@#$%^&*()_-+={}[]:;'<>,.?/|";
+        String specialChars = "~!@#$%^&*()_+={}[]:;'<>,?/|";
         int index = RANDOM.nextInt(specialChars.length());
 
         return specialChars.charAt(index);
