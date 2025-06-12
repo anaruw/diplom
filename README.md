@@ -48,3 +48,5 @@
 - [Эмулятор банковских сервисов](artifacts/gate-simulator)
 - [Java-код](src/test/java/ru/netology/diplom) проекта
 - [План автоматизации](docs/Plan.md)
+- [отчет по результатам тестирования](docs/Report.md)
+- [отчет по результатам автоматизации](docs/Summary.md)
